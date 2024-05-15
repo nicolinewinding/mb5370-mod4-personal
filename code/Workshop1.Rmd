@@ -1,13 +1,29 @@
 ---
-title: "MB5370 Module 04. Workshop 1 - Introduction"
-author: "Ben Cresswell"
+title: "MB5370 Module 4 Workshop 1"
+author: "Nicoline Winding"
 output: html_document
-date: "2024-03-22"
+date: "2024-05-16"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setting up github, include=FALSE}
+install.packages("usethis")
+#introducing myself to GitHub
+library(usethis)
+use_git_config(user.name = "nicolinewinding", user.email = "nicoline.winding@hotmail.com")
+
+##check if everything is working
+#install.packages("credentials")
+credentials::git_credential_ask()
+usethis::git_sitrep()
+
+##change credentials
+gitcreds::gitcreds_set()
+
+##get git to talk to github
+usethis::use_github()
+## now I can use the pull and push buttons, which just tells me that everything is up-to-date
 ```
+
 
 
 # Install and load tidyverse packages
