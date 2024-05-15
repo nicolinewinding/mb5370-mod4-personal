@@ -16,6 +16,8 @@ Nicoline Winding
 
 Workspace for R code: ~/Documents/github/mb35370-mod4-personal/code/Plot_Deconstruction.R
 
+The original plot that we descontructed and then reconstructed in a more digestible and clear way can be seen in https://link.springer.com/article/10.1007/s10640-021-00637-y as Figure 3.
+
 ```{r set-up, eval = TRUE, results="hide"}
 #set working directory
 setwd("~/Documents")
@@ -45,4 +47,10 @@ p <- ggplot(data, aes(x=scenario, y=hours, width=.8)) +
 
 p + labs(fill = "Gear-type")
 ```
+
+Figure 1 - Hours at sea (+/- SE) for scenarios 1-6, depending on the gear-type used.
+
+
+
+
 
