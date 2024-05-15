@@ -2,8 +2,19 @@
 title: "MB5370 Module 4 Workshop 1"
 author: "Nicoline Winding"
 output: html_document
-date: "2024-05-16"
 ---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Reproducible research & version control
+
+# Workshop 1 R code and activities
+May 2024
+
+Nicoline Winding
+
+Workspace for R code: ~/Documents/github/mb35370-mod4-personal/code/workshop1.R
 
 ```{r setting up github, include=FALSE}
 install.packages("usethis")
@@ -24,33 +35,34 @@ usethis::use_github()
 ## now I can use the pull and push buttons, which just tells me that everything is up-to-date
 ```
 
-
-
-# Install and load tidyverse packages
-```{r}
+Install and load tidyverse packages
+```{r packages}
 ## install.packages("tidyverse") # Delete this line once installed
 library("tidyverse")
 ```
 
-
-# Load the data (mpg is built into ggplot2)
-```{r}
+Look at the data frame
+```{r dataframe}
 data(mpg)
+#if you want to know more about this dataset
+?mpg
 ```
 
-
-# Quick data checks
-```{r}
+Check that data looks correct
+```{r data checks}
 head(mpg)
 glimpse(mpg)
 summary(mpg)
 ```
 
+## Graphing template
 
-# Create first plot
-```{r}
+Create first plot
+```{r first plot}
+#put the size of the engine (displ) on the x axis and the fuel efficiency (hwy) on the y axis
+#the function geom_point() adds a layer of points to your plot
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = disp, y = hwy))
+  geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
 The plot shows a negative relationship between engine size (displ) and fuel efficiency (hwy). In other words, cars with big engines use more fuel. What does this say about fuel efficiency and engine size?
