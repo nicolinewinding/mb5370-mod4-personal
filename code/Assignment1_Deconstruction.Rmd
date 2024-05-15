@@ -14,7 +14,7 @@ May 2024
 
 Nicoline Winding
 
-Workspace for R code: ~/Documents/github/mb35370-mod4-personal/code/workshop1.R
+Workspace for R code: ~/Documents/github/mb35370-mod4-personal/code/Plot_Deconstruction.R
 
 ```{r set-up, eval = TRUE, results="hide"}
 #set working directory
