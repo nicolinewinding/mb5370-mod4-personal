@@ -1,0 +1,36 @@
+---
+title: "MB5370 Module 4"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Data Science in R
+
+# Assignment 2: Plot De- and Reconstruction
+May 2024
+
+Nicoline Winding
+
+```{r set-up, eval = TRUE, results="hide"}
+#set working directory
+setwd("~/Documents")
+#read in data extracted from original graph
+shark <- read.delim("Shark.txt")
+shark
+
+str(shark)
+
+library(tidyverse)
+
+shark$Area <- factor(shark$Area)
+shark$Year <- factor(shark$Year)
+shark$Species <- factor(shark$Species)
+
+```
+
+
+
+
+
