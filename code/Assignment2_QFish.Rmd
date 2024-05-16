@@ -14,10 +14,9 @@ May 2024
 Nicoline Winding
 
 ```{r set-up, eval = TRUE, results="hide"}
-#set working directory
-setwd("~/Documents")
+#set working directory is not necessary for a markdown file
 #read in data extracted from original graph
-shark <- read.delim("Shark.txt")
+shark <- read.delim("../data/Shark.txt")
 shark
 
 str(shark)
@@ -28,6 +27,17 @@ shark$Area <- factor(shark$Area)
 shark$Year <- factor(shark$Year)
 shark$Species <- factor(shark$Species)
 ```
+
+
+```{r changing variables, eval = TRUE, r}
+#get the average shark and turtle counts for each year across all the areas north of Bundaberg 
+if(data$Year == 2014) {
+  shark2014 <- (mean(shark$Count)
+}
+
+
+```
+
 
 ```{r building graph, eval = TRUE, r}
 ggplot(shark) +
@@ -40,8 +50,18 @@ p <- ggplot(shark) +
     
 p + geom_jitter()
 
+#different graph - not right, would need to 
+ggplot(shark) +
+    geom_line(aes(x = Year, y = Count, color = Species))
+
+#different graph - meh
+ggplot(shark, aes(x=Year, y=Count, width=.8)) +
+  geom_bar(aes(fill=Species), position=position_dodge(width = 0.9), stat="identity") +
+  scale_fill_manual(values = c("lightblue4", "seagreen4"))+
+  facet_wrap(~ Area)
 
 ```
 
-
+how to save plots:
+ggsave("../output/FILENAME.jpg", PLOTNAME, width = 3, height = 2)
 
