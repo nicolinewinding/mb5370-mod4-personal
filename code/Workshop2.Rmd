@@ -1,0 +1,16 @@
+---
+title: "Workshop2"
+output: html_document
+date: "2024-05-16"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Data wrangling in R
+
+## Workshop 2 code and activities
+May 2024
+
+
