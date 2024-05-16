@@ -27,10 +27,21 @@ library(tidyverse)
 shark$Area <- factor(shark$Area)
 shark$Year <- factor(shark$Year)
 shark$Species <- factor(shark$Species)
-
 ```
 
+```{r building graph, eval = TRUE, r}
+ggplot(shark) +
+    geom_point(aes(x = Year, y = Count, color = Species, width=5)) +
+    facet_wrap(~ Area)
 
+#different graph - doesn't work
+p <- ggplot(shark) +
+    geom_point(aes(x = Year, y = Count, color = Species))
+    
+p + geom_jitter()
+
+
+```
 
 
 
