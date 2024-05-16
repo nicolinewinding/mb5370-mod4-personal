@@ -1,0 +1,121 @@
+Area	Year	Species	Count
+Bundaberg	2014	Shark	57
+Bundaberg	2014	Turtle	5
+Bundaberg	2015	Shark	45
+Bundaberg	2015	Turtle	7
+Bundaberg	2016	Shark	52
+Bundaberg	2016	Turtle	1
+Bundaberg	2017	Shark	54
+Bundaberg	2017	Turtle	0
+Bundaberg	2018	Shark	53
+Bundaberg	2018	Turtle	0
+Bundaberg	2019	Shark	58
+Bundaberg	2019	Turtle	0
+Bundaberg	2020	Shark	55
+Bundaberg	2020	Turtle	0
+Bundaberg	2021	Shark	73
+Bundaberg	2021	Turtle	0
+Bundaberg	2022	Shark	64
+Bundaberg	2022	Turtle	0
+Bundaberg	2023	Shark	54
+Bundaberg	2023	Turtle	1
+Cairns	2014	Shark	71
+Cairns	2014	Turtle	0
+Cairns	2015	Shark	116
+Cairns	2015	Turtle	0
+Cairns	2016	Shark	51
+Cairns	2016	Turtle	0
+Cairns	2017	Shark	47
+Cairns	2017	Turtle	0
+Cairns	2018	Shark	43
+Cairns	2018	Turtle	0
+Cairns	2019	Shark	43
+Cairns	2019	Turtle	0
+Cairns	2020	Shark	62
+Cairns	2020	Turtle	0
+Cairns	2021	Shark	58
+Cairns	2021	Turtle	0
+Cairns	2022	Shark	60
+Cairns	2022	Turtle	0
+Cairns	2023	Shark	66
+Cairns	2023	Turtle	0
+Capricorn Coast	2014	Shark	66
+Capricorn Coast	2014	Turtle	0
+Capricorn Coast	2015	Shark	71
+Capricorn Coast	2015	Turtle	1
+Capricorn Coast	2016	Shark	54
+Capricorn Coast	2016	Turtle	0
+Capricorn Coast	2017	Shark	41
+Capricorn Coast	2017	Turtle	0
+Capricorn Coast	2018	Shark	43
+Capricorn Coast	2018	Turtle	1
+Capricorn Coast	2019	Shark	38
+Capricorn Coast	2019	Turtle	0
+Capricorn Coast	2020	Shark	50
+Capricorn Coast	2020	Turtle	0
+Capricorn Coast	2021	Shark	144
+Capricorn Coast	2021	Turtle	3
+Capricorn Coast	2022	Shark	178
+Capricorn Coast	2022	Turtle	10
+Capricorn Coast	2023	Shark	244
+Capricorn Coast	2023	Turtle	3
+Gladstone	2014	Shark	50
+Gladstone	2014	Turtle	0
+Gladstone	2015	Shark	46
+Gladstone	2015	Turtle	0
+Gladstone	2016	Shark	52
+Gladstone	2016	Turtle	0
+Gladstone	2017	Shark	45
+Gladstone	2017	Turtle	0
+Gladstone	2018	Shark	36
+Gladstone	2018	Turtle	0
+Gladstone	2019	Shark	42
+Gladstone	2019	Turtle	1
+Gladstone	2020	Shark	29
+Gladstone	2020	Turtle	1
+Gladstone	2021	Shark	34
+Gladstone	2021	Turtle	3
+Gladstone	2022	Shark	47
+Gladstone	2022	Turtle	2
+Gladstone	2023	Shark	87
+Gladstone	2023	Turtle	5
+Mackay	2014	Shark	110
+Mackay	2014	Turtle	0
+Mackay	2015	Shark	82
+Mackay	2015	Turtle	0
+Mackay	2016	Shark	66
+Mackay	2016	Turtle	0
+Mackay	2017	Shark	55
+Mackay	2017	Turtle	0
+Mackay	2018	Shark	40
+Mackay	2018	Turtle	0
+Mackay	2019	Shark	44
+Mackay	2019	Turtle	0
+Mackay	2020	Shark	68
+Mackay	2020	Turtle	0
+Mackay	2021	Shark	93
+Mackay	2021	Turtle	0
+Mackay	2022	Shark	61
+Mackay	2022	Turtle	0
+Mackay	2023	Shark	72
+Mackay	2023	Turtle	0
+Townsville	2014	Shark	101
+Townsville	2014	Turtle	1
+Townsville	2015	Shark	139
+Townsville	2015	Turtle	2
+Townsville	2016	Shark	112
+Townsville	2016	Turtle	1
+Townsville	2017	Shark	107
+Townsville	2017	Turtle	1
+Townsville	2018	Shark	113
+Townsville	2018	Turtle	0
+Townsville	2019	Shark	82
+Townsville	2019	Turtle	2
+Townsville	2020	Shark	130
+Townsville	2020	Turtle	0
+Townsville	2021	Shark	150
+Townsville	2021	Turtle	3
+Townsville	2022	Shark	127
+Townsville	2022	Turtle	0
+Townsville	2023	Shark	179
+Townsville	2023	Turtle	0
