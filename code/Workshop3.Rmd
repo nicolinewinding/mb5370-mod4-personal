@@ -90,27 +90,231 @@ ggplot(table1, aes(year, cases)) +
   geom_point(aes(colour = country))
 ```
 
+## Pivoting data to make it tidy
 
+Most data we will encounter will likely be untidy as the way data is collected is not always done with future analyses in mind. Therefore, most data will need some amount of tidying. 
 
+The first step in tidying is to understand what each variable and observation actually means. 
 
+We can fix issues with 'pivot' using two function sin tidyr: pivot_longer() to lengthen data and pivot_wider() to widen data
 
+### Lengthening datasets
+ggplot2 cannot work with data in columns, only variables in columns.
 
-## R Markdown
+There are 3 key arguments to the pivot_longer() function:
+- 'cols' specifies the columns you want to pivot - the ones that aren't variables
+- 'names_to' names the variable stored in the column names
+- 'values_to' names the variable stored in the cell values
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+We can also ask pivot functions to remove rows where there are NA values once the data has been lengthened by using 'values_drop_na = TRUE'. This helps tidy the data further
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+### Pivoting longer
+Let's create a dataset called df with 3 variables
+```{r pivot longer example}
+df <- tribble(
+  ~id,  ~bp1, ~bp2,
+   "A",  100,  120,
+   "B",  140,  115,
+   "C",  120,  125
+)
 ```
 
-## Including Plots
+To add 3 variables to a tidy dataset we need to do the following:
+```{r pivot longer example1}
+df |> 
+  pivot_longer(
+    cols = bp1:bp2,
+    names_to = "measurement",
+    values_to = "value"
+  )
+```
+The values in a column which was already a variable in the original dataset (in this case id) need to be repeated, once for each column that is pivoted.
 
-You can also embed plots, for example:
+Additionally, the original column names in df (bp1 and bp2) now become values in a new variable, whose name is defined by the names_to argument and these values need to be repeated once for each row in the original dataset.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+And finally, the cell values also become a new variable with a name we defined by the values_to argument. These are unwound row by row.
+
+### Widening datasets
+Needing to widening datasets is much less common than needing to lengthening datasets. pivot_wider is essentially the opposite of lengthening. 
+
+```{r pivot wider example}
+cms_patient_experience
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+This will allow us to see the complete set of values for measure_cd and measure_title:
+```{r pivot wider example1}
+cms_patient_experience |>
+  distinct(measure_cd, measure_title) 
+```
+
+pivot_wider() has the opposite interface to pivot_longer as we need to provide existing columns:
+```{r pivot wider example2}
+cms_patient_experience |> 
+  pivot_wider(
+    names_from = measure_cd,
+    values_from = prf_rate
+  )
+```
+This isn't right as it gives us multiple rows for each organization because we also need to tell the function which column or columns have values that uniquely identify each row:
+```{r pivot wider example3}
+cms_patient_experience |> 
+  pivot_wider(
+    id_cols = starts_with("org"),
+    names_from = measure_cd,
+    values_from = prf_rate
+  )
+```
+
+### Pivoting wider
+```{r pivot wider example4}
+df <- tribble(
+  ~id, ~measurement, ~value,
+  "A",        "bp1",    100,
+  "B",        "bp1",    140,
+  "B",        "bp2",    115, 
+  "A",        "bp2",    120,
+  "A",        "bp3",    105
+)
+
+df |> 
+  pivot_wider(
+    names_from = measurement,
+    values_from = value
+  )
+
+df |> 
+  distinct(measurement) |> 
+  pull()
+
+df |> 
+  select(-measurement, -value) |> 
+  distinct()
+
+df |> 
+  select(-measurement, -value) |> 
+  distinct() |> 
+  mutate(x = NA, y = NA, z = NA) #combines the above command results to generate an empty dataframe
+```
+The command then fills in all the missing valuess using the data in the input. pivot_wider makes up missing NA values.
+
+### Separating and uniting data tables
+We can use 'separate()' to split one column into multiple colums that we designate.
+
+We are splitting the rate column into 2 variables:
+```{r pivot separate example}
+table3 %>% 
+  separate(rate, into = c("cases", "population"))
+
+table3 %>% 
+  separate(rate, into = c("cases", "population"), sep = "/") #this does the exact same thing
+
+table3 %>% 
+  separate(rate, into = c("cases", "population"), convert = TRUE) #this changes the new columns into better types of data
+
+table3 %>% 
+  separate(year, into = c("century", "year"), sep = 2) #this separates the last 2 digits of each year
+```
+
+We can also use the function 'unit()' to reverse separate
+```{r unite example}
+table5 %>% 
+  unite(new, century, year, sep = "")
+```
+
+## Handling missing values
+Missing values are very common, and sometimes populated with NA or a blank cell which is worse
+
+### Explicit missing values
+NA indicates the presence of absent data, whereas a blank cell just indicated the absence of data
+```{r missing value}
+treatment <- tribble(
+  ~person, ~treatment, ~response,
+  "Derrick Whitmore", 1,         7,
+  NA,                 2,         10,
+  NA,                 3,         NA,
+  "Katherine Burke",  1,         4
+)
+```
+We can fill missing values with tidyr::fill()
+```{r missing value1}
+treatment |>
+  fill(everything())
+```
+
+### Fixed values
+Sometimes missing values represent some fixed and known value, most commonly 0. We can use dplyr::coalesce() to replace them
+```{r missing value2}
+x <- c(1, 4, 5, 7, NA)
+coalesce(x, 0) #this inserts 0 instead of NA
+```
+
+The opposite problem where some other concrete value actually represents a missing value can also happen:
+```{r missing value3}
+x <- c(1, 4, 5, 7, -99)
+na_if(x, -99)
+```
+
+### NaN
+A special type of missing value worth mentioning is NaN or Not a Number, which typically behaves the same as NA but can be distinguished by using is.nan(x)
+
+```{r NaN}
+x <- c(NA, NaN)
+x * 10
+x == 1
+is.na(x)
+```
+
+### Implicit missing values
+
+Missing values can also be implicit if an entire row of data is simply absent from the data.
+
+This following dataset has 2 missing observations: NA appears for the price of the 4th quarter of 2020 (IE EXPLICIT) and the price for the first quarter in 2021 is simply not appearing (IE IMPLICIT).
+```{r implicit missing}
+stocks <- tibble(
+  year  = c(2020, 2020, 2020, 2020, 2021, 2021, 2021),
+  qtr   = c(   1,    2,    3,    4,    2,    3,    4),
+  price = c(1.88, 0.59, 0.35,   NA, 0.92, 0.17, 2.66)
+)
+```
+
+We can make both missing values explicit by using pivot_wider()
+```{r implicit missing1}
+stocks |>
+  pivot_wider(
+  names_from = qtr, 
+    values_from = price
+  ) #both appear as NA now
+```
+
+## How can I import data into R?
+
+Here we explore how to read plain-text rectangular files into R. We can do this using the readr package
+
+### CSV files
+This is the most common file type, and can be created by saving excel files as .csv
+
+To read csv files into R we use the command: read_csv()
+
+### Practical advice
+The first step once data has been read in is to assess how tidy the data is and whether it is valid
+
+R rule: variable names cannot contain spaces
+
+## Learning relational data
+Relational data is a collection of multiple data tables in a given dataset or in a project that are related in some ways. The relations between these tables matter, not just the individual tables.
+
+Many datasets will contain multiple data tables and the combination of data in the tables will help you to answer you questions of interest.
+
+We can use the package dplyr to do this, and there are 3 families of verbs designed to work with relational data:
+- mutating joins: adds new variables to one dataframe from matching observations in another
+- filtering joins: filters observations from one data frame based on whether or not they match an observation in the other table
+- set operations: treat observations as they are set elements
+
+OBS: there are some tradeoffs with using dplyr. It makes common operations easier but at the expense of making it more difficult to do other things that usually aren't needed for data analysis.
+
+```{r dplyr}
+library(tidyverse)
+library(nycflight13) #doesn't work
+```
+
+
