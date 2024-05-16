@@ -1,0 +1,116 @@
+---
+title: "Workshop3"
+output: html_document
+date: "2024-05-16"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Data wrangling in R
+
+## Workshop 3 code and activities
+May 2024
+
+## Tidying data using Tidyr
+```{r load packages}
+library(tidyverse)
+```
+
+## Tidy data
+
+Example of some table outputs, all displaying the same data
+```{r table examples}
+##table1
+#> # A tibble: 6 × 4
+#>   country      year  cases population
+#>   <chr>       <int>  <int>      <int>
+#> 1 Afghanistan  1999    745   19987071
+#> 2 Afghanistan  2000   2666   20595360
+#> 3 Brazil       1999  37737  172006362
+#> 4 Brazil       2000  80488  174504898
+#> 5 China        1999 212258 1272915272
+#> 6 China        2000 213766 1280428583
+
+##table2
+#> # A tibble: 12 × 4
+#>   country      year type           count
+#>   <chr>       <int> <chr>          <int>
+#> 1 Afghanistan  1999 cases            745
+#> 2 Afghanistan  1999 population  19987071
+#> 3 Afghanistan  2000 cases           2666
+#> 4 Afghanistan  2000 population  20595360
+#> 5 Brazil       1999 cases          37737
+#> 6 Brazil       1999 population 172006362
+#> # ... with 6 more rows
+
+##table3
+#> # A tibble: 6 × 3
+#>   country      year rate    
+#>   #> * <chr>       <int> <chr>            
+#> 1 Afghanistan  1999 745/19987071     
+#> 2 Afghanistan  2000 2666/20595360    
+#> 3 Brazil       1999 37737/172006362  
+#> 4 Brazil       2000 80488/174504898  
+#> 5 China        1999 212258/1272915272
+#> 6 China        2000 213766/1280428583
+
+
+```
+
+Only table 1 is tidy as it has the most clear structure of variables and rows and coloumns.
+
+3 rules for making tudy datasets:
+- Each variable must have its own column.
+- Each observation must have its own row.
+- Each value must have its own cell.
+
+Tidy data is useful because:
+- Having a consistent data structure makes it easier to learn the tools that work with it, and 
+- Having your variables in columns allows R to use its ability to work with vectors of values. This makes transforming tidy data a smoother process.
+
+Filtering data, summarine data and using certain functions in ggplot2 is impossible is the dataframe is not the same format as Table 1 from above.
+
+%>% is a pipe designed to help you better understand what the code is doing. It takes data from the left of the pipe and applied the function. |> does the same thing in base R.
+
+```{r pipe examples}
+table1 %>% 
+  mutate(rate = cases / population * 10000)
+# this creates a new coloumn for the variable rate which is calculated by the command
+
+table1 %>% 
+  count(year, wt = cases)
+#this computes cases per year
+
+#this can be visualised with ggplot
+library(ggplot2)
+ggplot(table1, aes(year, cases)) + 
+  geom_line(aes(group = country), colour = "grey50") + 
+  geom_point(aes(colour = country))
+```
+
+
+
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
