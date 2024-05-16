@@ -1,0 +1,13 @@
+gear	scenario	hours	SE
+Net & hook	1	24.0216	0
+Net & hook	2	20.0688	1.9
+Net & hook	3	27.0624	3.19
+Net & hook	4	26.45424	1.06
+Net & hook	5	22.57728	1.36
+Net & hook	6	15.58368	4.25
+Posts & traps	1	23.94576	0
+Posts & traps	2	23.26152	0.228
+Posts & traps	3	24.858	1.74
+Posts & traps	4	24.70584	0.38
+Posts & traps	5	24.09768	0.6
+Posts & traps	6	22.2732	0.22
