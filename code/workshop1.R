@@ -214,5 +214,3 @@ ggplot(data = mpg) +
 #all separate script and rmd files
 
 
-
-
