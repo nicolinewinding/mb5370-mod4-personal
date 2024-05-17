@@ -42,8 +42,8 @@ p<-ggplot(sharkav, aes(x = Year, y = count_av, color = Species)) +
   geom_pointrange(aes(ymin = count_av-SE, ymax = count_av+SE)) +
   scale_color_manual(values = c("lightblue4", "darkseagreen")) +
   xlab("Year") +
-  ylab("Mean count +/- SE")+
-  facet_wrap(~ Species, scales = "free_y")
+  ylab("Mean catch +/- SE") #+
+  #facet_wrap(~ Species, scales = "free_y") this would split the graph into 2: one for sharks and one for turtles in order to display the turtle values more clearly but doesn't suit my question for the data
 
 
 plot <- p+theme_classic()
