@@ -28,7 +28,7 @@ shark$Species <- factor(shark$Species)
 ```
 
 
-```{r changing variables, eval = TRUE, r}
+```{r changing variables, eval = TRUE}
 #get the mean shark and turtle counts and SE for each year across all the areas
 sharkav <- shark |> 
   group_by(Year, Species) |>
@@ -37,7 +37,7 @@ sharkav <- shark |>
 ```
 
 
-```{r building graph, eval = TRUE, r}
+```{r building graph, eval = TRUE}
 p<-ggplot(sharkav, aes(Year, y = count_av, color = Species)) +
   geom_pointrange(aes(ymin = count_av-SE, ymax = count_av+SE)) +
   scale_color_manual(values = c("lightblue4", "darkseagreen")) +
@@ -45,9 +45,11 @@ p<-ggplot(sharkav, aes(Year, y = count_av, color = Species)) +
   ylab("Mean count +/- SE")
 
 plot <- p+theme_classic()
+
+plot
 ```
 
-```{r saving graph, eval = TRUE, r}
+```{r saving graph, eval = TRUE}
 ggsave("../output/Graph.jpg", plot, width = 200, height = 140, units = "mm")
 ```
 
