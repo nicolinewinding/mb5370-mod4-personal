@@ -24,18 +24,16 @@ str(shark)
 library(tidyverse)
 
 shark$Area <- factor(shark$Area)
-shark$Year <- factor(shark$Year)
 shark$Species <- factor(shark$Species)
 ```
 
 
 ```{r changing variables, eval = TRUE, r}
-#get the average shark and turtle counts for each year across all the areas north of Bundaberg 
-if(data$Year == 2014) {
-  shark2014 <- (mean(shark$Count)
-}
-
-
+#get the mean shark and turtle counts and SE for each year across all the areas
+sharkav <- shark |> 
+  group_by(Year, Species) |>
+  summarise(count_av = mean(Count), 
+            SE = sd(Count)/sqrt(length(Count))) 
 ```
 
 
@@ -59,6 +57,18 @@ ggplot(shark, aes(x=Year, y=Count, width=.8)) +
   geom_bar(aes(fill=Species), position=position_dodge(width = 0.9), stat="identity") +
   scale_fill_manual(values = c("lightblue4", "seagreen4"))+
   facet_wrap(~ Area)
+
+
+
+
+ggplot(sharkav, aes(Year, y = count_av, color = Species)) +
+  geom_pointrange(aes(ymin = count_av-SE, ymax = count_av+SE)) +
+  scale_color_manual(values = c("lightblue4", "seagreen4")) +
+  theme(panel.background = element_rect(fill = "white", colour = "grey50"),
+          legend.box.margin = margin(6, 6, 6, 6)) +
+  xlab("Year") +
+  ylab("Mean count +/- SE")
+
 
 ```
 
