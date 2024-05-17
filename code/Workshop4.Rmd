@@ -96,3 +96,9 @@ plot(sdat["richness_raw"])
 #this plots all the columns:
 plot(sdat)
 ```
+
+
+
+
+
+
