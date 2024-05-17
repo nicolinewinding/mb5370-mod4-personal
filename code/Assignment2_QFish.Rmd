@@ -38,40 +38,23 @@ sharkav <- shark |>
 
 
 ```{r building graph, eval = TRUE, r}
-ggplot(shark) +
-    geom_point(aes(x = Year, y = Count, color = Species, width=5)) +
-    facet_wrap(~ Area)
-
-#different graph - doesn't work
-p <- ggplot(shark) +
-    geom_point(aes(x = Year, y = Count, color = Species))
-    
-p + geom_jitter()
-
-#different graph - not right, would need to 
-ggplot(shark) +
-    geom_line(aes(x = Year, y = Count, color = Species))
-
-#different graph - meh
-ggplot(shark, aes(x=Year, y=Count, width=.8)) +
-  geom_bar(aes(fill=Species), position=position_dodge(width = 0.9), stat="identity") +
-  scale_fill_manual(values = c("lightblue4", "seagreen4"))+
-  facet_wrap(~ Area)
-
-
-
-
-ggplot(sharkav, aes(Year, y = count_av, color = Species)) +
+p<-ggplot(sharkav, aes(Year, y = count_av, color = Species)) +
   geom_pointrange(aes(ymin = count_av-SE, ymax = count_av+SE)) +
-  scale_color_manual(values = c("lightblue4", "seagreen4")) +
-  theme(panel.background = element_rect(fill = "white", colour = "grey50"),
-          legend.box.margin = margin(6, 6, 6, 6)) +
+  scale_color_manual(values = c("lightblue4", "darkseagreen")) +
   xlab("Year") +
   ylab("Mean count +/- SE")
 
-
+plot <- p+theme_classic()
 ```
 
-how to save plots:
-ggsave("../output/FILENAME.jpg", PLOTNAME, width = 3, height = 2)
+```{r saving graph, eval = TRUE, r}
+ggsave("../output/Graph.jpg", plot, width = 200, height = 140, units = "mm")
+```
+
+
+
+
+
+
+
 
