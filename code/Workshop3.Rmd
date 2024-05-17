@@ -312,9 +312,4 @@ We can use the package dplyr to do this, and there are 3 families of verbs desig
 
 OBS: there are some tradeoffs with using dplyr. It makes common operations easier but at the expense of making it more difficult to do other things that usually aren't needed for data analysis.
 
-```{r dplyr}
-library(tidyverse)
-library(nycflight13) #doesn't work
-```
-
 
