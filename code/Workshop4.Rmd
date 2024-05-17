@@ -1,0 +1,98 @@
+---
+title: "Workshop4"
+output: html_document
+date: "2024-05-16"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Spatial data in R
+
+## Workshop 4 code and activities
+May 2024
+
+R can do practically everything that the off-the-shelf GIS programs can do, with some added benefits:
+- you don't need to remember complex workflows based on mouse clicks and maintaining processing logs
+- you can version control and backup your spatial analysis, and make you work reproducible and openly avaialable
+- you can interface your results directly with other components of the R system
+
+## Installing the spatial R packages
+```{r packages, include=FALSE}
+#install.packages("sf") 
+#install.packages("terra")
+#install.packages("tmap")
+
+
+#load into R library
+library(tidyverse)
+library(sf) # simple features
+library (terra) # for raster
+library(tmap) # Thematic maps are geographical maps in which spatial data distributions are visualized DOESN'T WORK!!!!!!!
+```
+
+```{r load data, include=FALSE}
+library(readr)
+dat <- read_csv("../data/workshop4/copepods_raw.csv")
+dat
+```
+
+## Data exploration
+It is not uncommon to be given data by collaborators you know nothing about, so always good practice to thoroughly check it before running any code on it.
+
+### Check coordinates
+```{r check coords, include=FALSE}
+library(ggplot2)
+ggplot(dat) + 
+  aes(x = longitude, y = latitude, color = richness_raw) +
+  geom_point()
+```
+
+This shows the location of every segment as well as the species richness depicted by the color of the points. This is useful but not a map.
+
+We can also visualise species richness in a non-spatial way:
+```{r non spatial visualisation, include=FALSE}
+ggplot(dat, aes(x = latitude, y = richness_raw)) + 
+  stat_smooth() + 
+  geom_point()
+```
+This looks odd with data points at latitudes above -40. We can try and look at other variables and talk to collaborators to figure out what might be causing these weird patterns.
+
+
+## Getting going with maps
+We can use some specialist R packages to reference data to real locations on the planet and bend it around a mostly spherical ball that is the earth.
+
+This turns our data into a simple features collection:
+```{r using sf, include=FALSE}
+sdat <- st_as_sf(dat, coords = c("longitude", "latitude"), 
+                 crs = 4326)
+```
+
+## Coordinate reference systems
+
+You need coordinate reference systems for 2D mapping to compensate for lumpy 3D nature of the earth.
+```{r using sf, include=FALSE}
+crs4326 <- st_crs(4326)
+crs4326 # look at the whole CRS
+crs4326$Name # pull out just the name of the crs
+```
+
+## Feature collection (points)
+
+Let's look at what we created with sdat:
+```{r sdat, include=FALSE}
+sdat
+```
+
+A sf is like a shapefile that holds data in columns and rows but is also spatially aware by including extra columns regarding each rows position and metadata about the coordinate reference system, the type of geometry, etc.
+
+## Cartography
+
+Let's only plot the richness column:
+```{r sdat plot, include=FALSE}
+plot(sdat["richness_raw"])
+
+#this plots all the columns:
+plot(sdat)
+```
