@@ -8,7 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 # Data Science in R
 
-# Assignment 2: Plot De- and Reconstruction
+# Assignment 2: QFish data wrangling and graph plotting
 May 2024
 
 Nicoline Winding
@@ -38,16 +38,21 @@ sharkav <- shark |>
 
 
 ```{r building graph, eval = TRUE}
-p<-ggplot(sharkav, aes(Year, y = count_av, color = Species)) +
+p<-ggplot(sharkav, aes(x = Year, y = count_av, color = Species)) +
   geom_pointrange(aes(ymin = count_av-SE, ymax = count_av+SE)) +
   scale_color_manual(values = c("lightblue4", "darkseagreen")) +
   xlab("Year") +
-  ylab("Mean count +/- SE")
+  ylab("Mean count +/- SE")+
+  facet_wrap(~ Species, scales = "free_y")
+
 
 plot <- p+theme_classic()
 
 plot
 ```
+
+Figure 1 - Average catch of sharks and turtles in the Queensland shark control program from 2014-2023 on the QLD coast north of Bundaberg
+
 
 ```{r saving graph, eval = TRUE}
 ggsave("../output/Graph.jpg", plot, width = 200, height = 140, units = "mm")
