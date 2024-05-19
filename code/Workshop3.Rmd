@@ -312,4 +312,38 @@ We can use the package dplyr to do this, and there are 3 families of verbs desig
 
 OBS: there are some tradeoffs with using dplyr. It makes common operations easier but at the expense of making it more difficult to do other things that usually aren't needed for data analysis.
 
+## Pipes for more readable workflows
+
+Pipes allow you to elegantly code data wrangling steps intoa series of sequential actions on a single data frame and allows us to implement the same wrangling steps with less code.
+
+```{r pipes}
+#not real functions or command, so obviously doesn't run
+  #foo_foo <- little_bunny()
+  #foo_foo_1 <- hop(foo_foo, through = forest)
+  #foo_foo_2 <- scoop(foo_foo_1, up = field_mice)
+  #foo_foo_3 <- bop(foo_foo_2, on = head)
+
+#more streamlined code
+  #foo_foo <- hop(foo_foo, through = forest)
+  #foo_foo <- scoop(foo_foo, up = field_mice)
+  #foo_foo <- bop(foo_foo, on = head)
+
+#even more streamlined by stringing function calls together
+  #bop(
+  # scoop(
+   #  hop(foo_foo, through = forest),
+    # up = field_mice
+   #), 
+  # on = head
+ #)
+
+#even less code by using a pipe
+  #foo_foo |>
+    #hop(through = forest) |>
+    #scoop(up = field_mice) |>
+    #bop(on = head)
+```
+
+
+
 
