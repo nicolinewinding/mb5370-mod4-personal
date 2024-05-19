@@ -72,7 +72,7 @@ sdat <- st_as_sf(dat, coords = c("longitude", "latitude"),
 ## Coordinate reference systems
 
 You need coordinate reference systems for 2D mapping to compensate for lumpy 3D nature of the earth.
-```{r using sf, include=FALSE}
+```{r using sf2, include=FALSE}
 crs4326 <- st_crs(4326)
 crs4326 # look at the whole CRS
 crs4326$Name # pull out just the name of the crs
@@ -97,8 +97,95 @@ plot(sdat["richness_raw"])
 plot(sdat)
 ```
 
+## Thematic maps for communication
 
+The tmap package is similar to ggplot as we build maps and add layers.
+tm_dots plots dots of the coordinates and we choose "richness:raw" as the color scale:
+```{r using tmap, include=FALSE}
+tm1 <- tm_shape(sdat) + 
+  tm_dots(col = "richness_raw")
 
+tm1
+```
 
+You can also save these maps with the command: tmap_save, similarly to ggsave.
 
+## Mapping spatial polygons as layers
+
+The sf package can handle many types of spatial data, including shapes and polygons.
+
+### Loading shapefiles
+
+.shp files are generally considered an undesirable file format because they are inefficient at storing data and to save one shapefile you actually create multiple files, which means bits of the file can be lost if you transger your data around. It is better to move away from shapefiles and save files as .gpkg
+
+```{r load files, include=FALSE}
+aus <- st_read("../data/workshop4/spatial-data/Aussie/Aussie.shp")
+
+shelf <- st_read("../data/workshop4/spatial-data/aus_shelf/aus_shelf.shp")
+
+#check data
+aus
+shelf
+```
+### Mapping your polygons
+
+```{r map polygon, include=FALSE}
+tm2 <- tm_shape(shelf) + 
+  tm_polygons()
+
+tm2
+```
+
+We can add layers to make thematic maps:
+```{r add layers, include=FALSE}
+tm3 <- tm_shape(shelf, bbox = sdat) + 
+  tm_polygons() +
+  tm_shape(aus) + 
+  tm_polygons() + 
+  tm_shape(sdat) + 
+  tm_dots() 
+
+tm3
+```
+## Exploring t_map
+
+Now we will customize our map:
+
+```{r customize map, include=FALSE}
+?tmap
+
+vignette('tmap-getstarted')
+
+#install.packages("viridisLite")
+library(viridis)
+
+tmap_mode("view") #makes the map in the following code interactive in the sense you can zoom in and out on the whole world
+
+tm4 <- tm_shape(shelf, bbox = sdat) + 
+  tm_polygons() +
+  tm_shape(aus) + 
+  tm_polygons() + 
+  tm_shape(sdat) +
+  tm_dots(col = "richness_raw", palette ="-viridis") +
+  tmap_style("albatross") +
+  tm_layout(title = "Richness", bg.color = "#228B22") +
+  tm_scale_bar(position = c("right", "bottom"), width = 0.15) #+
+  #tm_compass(position = c("left", "bottom"), size = 2) this doesn't work with the interactive view mode
+
+tm4
+```
+
+There are also heaps of commands to insert different maps in the same plot, such as grid.layout and pushViewport and tm_facets.
+
+There is also an option to make maps animated with commands such as tmap_animation and loop, but these of course cannot be used in publications.
+
+## Exporting your map
+
+```{r saving map, include=FALSE}
+
+tmap_save(tm4, filename = "../output/Map.jpg", 
+          width = 150, height = 150, units = "mm") #obviously cannot save the map as interactive
+```
+
+You can also import raster data to intersect with point data to create even more informative maps!
 
