@@ -29,7 +29,7 @@ R can do practically everything that the off-the-shelf GIS programs can do, with
 library(tidyverse)
 library(sf) # simple features
 library (terra) # for raster
-library(tmap) # Thematic maps are geographical maps in which spatial data distributions are visualized DOESN'T WORK!!!!!!!
+library(tmap) # Thematic maps are geographical maps in which spatial data distributions are visualized
 ```
 
 ```{r load data, include=FALSE}
