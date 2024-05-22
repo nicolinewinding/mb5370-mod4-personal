@@ -19,10 +19,8 @@ Workspace for R code: ~/Documents/github/mb35370-mod4-personal/code/Plot_Deconst
 The original plot that we descontructed and then reconstructed in a more digestible and clear way can be seen in https://link.springer.com/article/10.1007/s10640-021-00637-y as Figure 3.
 
 ```{r set-up, eval = TRUE, results="hide"}
-#set working directory
-setwd("~/Documents")
 #read in data extracted from original graph
-data <- read.delim("data.txt")
+data <- read.delim("../data/data.txt")
 data
 
 str(data)
